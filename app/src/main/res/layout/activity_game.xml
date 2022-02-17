@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".GameActivity">
+
+    <Button
+        android:id="@+id/ROCK"
+        android:layout_width="411dp"
+        android:layout_height="wrap_content"
+        android:onClick="@{() -> gameViewModel.onClickedAt(Options.ROCK)}"
+        android:text="ROCK"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
+    <Button
+        android:id="@+id/SCISSOR"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:onClick="@{() -> gameViewModel.onClickedAt(Options.SCISSORS)}"
+        android:text="SCISSORS"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ROCK"
+        />
+
+    <Button
+        android:id="@+id/PAPER"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="3dp"
+        android:onClick="@{() -> gameViewModel.onClickedAt(Options.PAPER)}"
+        android:text="PAPER"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/SCISSOR" />
+
+    <Button
+        android:id="@+id/LIZARD"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="3dp"
+        android:onClick="@{() -> gameViewModel.onClickedAt(Options.LIZARD)}"
+        android:text="LIZARD"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/PAPER" />
+
+    <Button
+        android:id="@+id/SPOCK"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:onClick="@{() -> gameViewModel.onClickedAt(Options.SPOCK)}"
+        android:text="SPOCK"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/LIZARD" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="575dp"
+        android:layout_height="303dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@mipmap/game" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
