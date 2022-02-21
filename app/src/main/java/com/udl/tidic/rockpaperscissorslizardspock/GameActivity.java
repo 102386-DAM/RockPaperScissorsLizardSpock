@@ -101,7 +101,7 @@ public class GameActivity extends AppCompatActivity {
 
 
     private void showDialogFragment() {
-        GameBeginDialog dialog = GameBeginDialog.newInstance("New game");
+        GameBeginDialog dialog = GameBeginDialog.newInstance(this);
         dialog.setCancelable(false);
         dialog.show(getSupportFragmentManager(), GAME_BEGIN_DIALOG_TAG);
     }

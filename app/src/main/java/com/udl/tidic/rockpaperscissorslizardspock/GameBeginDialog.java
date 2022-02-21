@@ -9,7 +9,9 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -37,18 +39,16 @@ public class GameBeginDialog extends DialogFragment {
         // Required empty public constructor
     }
 
-    public static GameBeginDialog newInstance(String title) {
+    public static GameBeginDialog newInstance(GameActivity activity) {
         GameBeginDialog dialog = new GameBeginDialog();
-        Bundle args = new Bundle();
-        args.putString("title", title);
-        dialog.setArguments(args);
+        dialog.activity = activity;
         return dialog;
     }
 
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        String title = getArguments().getString("title");
+        initViews();
         AlertDialog alertDialog = new AlertDialog.Builder(getContext())
                 .setView(rootView)
                 .setTitle(R.string.game_dialog_title)
@@ -59,16 +59,28 @@ public class GameBeginDialog extends DialogFragment {
         alertDialog.setCancelable(false);
         alertDialog.setOnShowListener(dialog -> {
             onDialogShow(alertDialog);
+
+
         });
         return alertDialog;
     }
 
-    @Override
+    private void initViews() {
+        rootView = LayoutInflater.from(getContext())
+                .inflate(R.layout.game_begin_dialog, null, false);
+
+        playerLayout = rootView.findViewById(R.id.layout_player);
+        playerEditText = rootView.findViewById(R.id.et_player);
+
+        addTextWatchers();
+    }
+
+    /*@Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.game_begin_dialog, container, false);
-    }
+    }*/
 
     private void onDialogShow(AlertDialog dialog) {
         Button positiveButton = dialog.getButton(AlertDialog.BUTTON_POSITIVE);
@@ -81,6 +93,7 @@ public class GameBeginDialog extends DialogFragment {
         if (isAValidName(playerLayout, player) ) {
             Log.d("GameBeginDialog", "Starting the game");
             //TODO: Aqui hauriem de retornar a l'activitat amb el nom que hem recollit.
+            dismiss();
         }
     }
 
@@ -94,5 +107,22 @@ public class GameBeginDialog extends DialogFragment {
         layout.setErrorEnabled(false);
         layout.setError("");
         return true;
+    }
+
+    private void addTextWatchers() {
+        playerEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                player = s.toString();
+            }
+        });
     }
 }
