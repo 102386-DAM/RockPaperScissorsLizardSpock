@@ -1,12 +1,14 @@
 package com.udl.tidic.rockpaperscissorslizardspock;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
 
 import android.content.Intent;
 import android.graphics.Region;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -17,15 +19,24 @@ import com.udl.tidic.rockpaperscissorslizardspock.models.Player;
 public class GameActivity extends AppCompatActivity {
 
     private static String TAG = GameActivity.class.getSimpleName();
+    private static final String GAME_BEGIN_DIALOG_TAG = "game_dialog_tag";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
         setContentView(R.layout.activity_game);
 
-        Bundle extras = getIntent().getExtras();
-        String name = extras.getString("name");
+        showDialogFragment();
 
+        //GameBeginDialog dialog = GameBeginDialog.newInstance(this);
+
+        //Bundle extras = getIntent().getExtras();
+        //String name = extras.getString("name");
+
+        //promptForPlayer();
+
+        String name = "Didac";
         Button button_rock = findViewById(R.id.ROCK);
         Button button_scissors = findViewById(R.id.SCISSOR);
         Button button_paper = findViewById(R.id.PAPER);
@@ -89,20 +100,9 @@ public class GameActivity extends AppCompatActivity {
     }
 
 
-    private Options getEnumOption(String text) {
-        switch (text) {
-            case "ROCK":
-                return Options.ROCK;
-            case "SCISSORS":
-                return Options.SCISSORS;
-            case "PAPER":
-                return Options.PAPER;
-            case "LIZARD":
-                return Options.LIZARD;
-            case "SPOCK":
-                return Options.SPOCK;
-            default:
-                return Options.PAPER;
-        }
+    private void showDialogFragment() {
+        GameBeginDialog dialog = GameBeginDialog.newInstance("New game");
+        dialog.setCancelable(false);
+        dialog.show(getSupportFragmentManager(), GAME_BEGIN_DIALOG_TAG);
     }
 }
